@@ -3,7 +3,8 @@ if(!empty($_POST)){
 $postTitle = $_POST['postTitle'];
 $postDescription = $_POST['postDescription'];
 $targetDirectory = "img/";
-$fileName = $_FILES['file']['name'];
+$fileName = hash('sha256', $_FILES['file']['name'].microtime());
+//$fileName = $_FILES['file']['name'];
 move_uploaded_file($_FILES['file']['tmp_name'], $targetDirectory.$fileName);
 $authorID=1;
 $imageUrl = "http://localhost/ProjektNaGita/img/" .$fileName;
