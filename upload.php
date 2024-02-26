@@ -7,8 +7,8 @@ $fileName = $_FILES['file']['name'];
 move_uploaded_file($_FILES['file']['tmp_name'], $targetDirectory.$fileName);
 $authorID=1;
 $imageUrl = "localhost/cms/img/" .$fileName;
-$db = new mysqli('localhost', 'root', '', 'cms');
-$q = $db->prepare("INSERT INTO post (author, imgUrl, title) VALUES (?,?,?)");
+$db = new mysqli('localhost', 'root', '', 'posty');
+$q = $db->prepare("INSERT INTO post (author, imgUrl, title) VALUES (?, ?, ?)");
 $q->bind_param("iss", $authorID, $imageURL, $postTitle);
 $q->execute();
 }
