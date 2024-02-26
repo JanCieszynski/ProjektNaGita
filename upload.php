@@ -6,7 +6,7 @@ $targetDirectory = "img/";
 $fileName = $_FILES['file']['name'];
 move_uploaded_file($_FILES['file']['tmp_name'], $targetDirectory.$fileName);
 $authorID=1;
-$imageUrl = "localhost/ProjektNaGita/img/" .$fileName;
+$imageUrl = "http://localhost/ProjektNaGita/img/" .$fileName;
 $db = new mysqli('localhost', 'root', '', 'posty');
 $q = $db->prepare("INSERT INTO post (author, imgUrl, title) VALUES (?, ?, ?)");
 $q->bind_param("iss", $authorID, $imageURL, $postTitle);
