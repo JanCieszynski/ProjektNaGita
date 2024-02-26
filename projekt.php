@@ -12,7 +12,7 @@
     </header>
     <div id="container">
         <?php
-        $db = new mysqli('localhost', 'root', '', 'cms');
+        $db = new mysqli('localhost', 'root', '', 'posty');
         $q = $db->prepare("SELECT post.id, post.imgUrl, post.title, 
                                     post.timestamp, user.email 
                             FROM `post` 
