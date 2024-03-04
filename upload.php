@@ -1,26 +1,38 @@
 <?php
-if(!empty($_POST)){
-$postTitle = $_POST['postTitle'];
-$postDescription = $_POST['postDescription'];
-$targetDirectory = "img/";
-$fileName = hash('sha256', $_FILES['file']['name'].microtime());
-//$fileName = $_FILES['file']['name'];
-//move_uploaded_file($_FILES['file']['tmp_name'], $targetDirectory.$fileName);
-$fileString = file_get_contents($_FILES['file']['tmp_name']);
-$gdImage = imagecreatefromgd($fileString);
-$finalUrl = "http://localhost/ProjektNaGita/img/".$fileName.".webp";
-$internalUrl = "img/".$fileName.".webp";
-imagewebp($gdImage,$finalUrl );
-$authorID=1;
-$imageUrl = "http://localhost/ProjektNaGita/img/" .$fileName;
-$db = new mysqli('localhost', 'root', '', 'posty');
-$q = $db->prepare("INSERT INTO post (author, imgUrl, title) VALUES (?, ?, ?)");
-$q->bind_param("iss", $authorID, $imageURL, $postTitle);
-$q->execute();
+if(!empty($_POST)) {
+ 
+    $postTitle = $_POST['postTitle'];
+    $postDescription = $_POST['postDescription'];
+
+    $targetDirectory = "img/";
+ 
+    $fileName = hash('sha256', $_FILES['file']['name'].microtime());
+
+    $fileString = file_get_contents($_FILES['file']['tmp_name']);
+
+
+    $gdImage = imagecreatefromstring($fileString);
+
+
+    $finalUrl = "http://localhost/cms/img/".$fileName.".webp";
+
+    $internalUrl = "img/".$fileName.".webp";
+
+
+    imagewebp($gdImage, $internalUrl);
+
+    $authorID = 1;
+
+
+    $db = new mysqli('localhost', 'root', '', 'posty');
+    $q = $db->prepare("INSERT INTO post (author, imgUrl, title) VALUES (?, ?, ?)");
+    $q->bind_param("iss", $authorID, $finalUrl, $postTitle);
+    $q->execute();
 }
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,8 +49,7 @@ $q->execute();
         <label for="fileInput">Obrazek:</label>
         <input type="file" name="file" id="fileInput">
         <br>
-        <input type="submit" value="Wyslij!">
+        <input type="submit" value="Wyślij!">
     </form>
-
 </body>
 </html>
