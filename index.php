@@ -29,7 +29,7 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == "register"){
     $email = $_REQUEST['email'];
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     $password = $_REQUEST['password'];
-    $passwordRepeat = $_REQUEST['passwordRepeatIn'];
+    $passwordRepeat = $_REQUEST['password'];
     if($password = $passwordRepeat){
     $q = $db->prepare("INSERT INTO user VALUES (NULL, ?, ?)");
     $q->bind_param("ss", $email, $password);
