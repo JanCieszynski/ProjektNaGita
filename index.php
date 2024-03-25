@@ -10,7 +10,7 @@ $db = new mysqli("localhost", "root", "", "authh");
 //echo $q;
 
 $q = $db->prepare("SELECT * FROM user WHERE email = ? LIMIT 1");
-$q->bind_param("s", $email);
+$q->bind_param("s", $email,);
 $q->execute();
 $result = $q->get_result();
 $userRow = $result->fetch_assoc();
@@ -32,7 +32,8 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == "register"){
     $passwordRepeat = $_REQUEST['password'];
     if($password = $passwordRepeat){
     $q = $db->prepare("INSERT INTO user VALUES (NULL, ?, ?)");
-    $q->bind_param("ss", $email, $password);
+    $passwordHash = password_hash($password, PASSWORD_ARGON2I);
+    $q->bind_param("ss", $email, $passwordHash);
     $result = $q->execute();
     if($result){
         echo "Konto utworzone poprawnie";
