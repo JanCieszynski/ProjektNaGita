@@ -1,4 +1,8 @@
 <?php
+session_start();
+require("./class/User.class.php");
+?>
+<?php
 if(isset($_REQUEST['action']) && $_REQUEST['action'] == "login"){
     
 
