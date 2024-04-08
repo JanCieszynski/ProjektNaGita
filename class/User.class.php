@@ -33,7 +33,7 @@ class User {
       $result = $q->get_result();
       $row = $result->fetch_assoc();
       $id = $row['id'];
-      $passwordHash = $row['password'];
+      $passwordHash = $row['passwordHash'];
       if(password_verify($password, $passwordHash)){
        
           $user = new User($id, $email);

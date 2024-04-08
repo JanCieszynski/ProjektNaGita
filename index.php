@@ -9,49 +9,56 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] == "login"){
 $email = $_REQUEST['email'];
 $password = $_REQUEST['password'];
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-$db = new mysqli("localhost", "root", "", "authh");
-//$q = "SELECT * FROM user WHERE email = '$email'";
-//echo $q;
-
-$q = $db->prepare("SELECT * FROM user WHERE email = ? LIMIT 1");
-$q->bind_param("s", $email,);
-$q->execute();
-$result = $q->get_result();
-$userRow = $result->fetch_assoc();
-if($userRow == null){
-    echo "Błędny login lub hasło <br>";
-} else {
-IF(password_verify($password, $userRow['passwordHash'])){
-echo "Zalogowano poprawnie <br>";
-} else {
-echo "Nieprawidłowy login lub hasło <br>";
-}
-}
-}
-if(isset($_REQUEST['action']) && $_REQUEST['action'] == "register"){
-    $db = new mysqli("localhost", "root", "", "authh");
-    $email = $_REQUEST['email'];
-    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
-    $password = $_REQUEST['password'];
-    $passwordRepeat = $_REQUEST['password'];
-    if($password = $passwordRepeat){
-    $q = $db->prepare("INSERT INTO user VALUES (NULL, ?, ?)");
-    $passwordHash = password_hash($password, PASSWORD_ARGON2I);
-    $q->bind_param("ss", $email, $passwordHash);
-    $result = $q->execute();
+$result = User::Login($email, $password);
     if($result){
         echo "Konto utworzone poprawnie";
     } else {
         echo "UPS Coś poszło nie tak!";
     }
-    } else {
-        echo "Hasła nie sa identyczne";
-    }
 }
-//$db->query($q);
+// $db = new mysqli("localhost", "root", "", "authh");
+// //$q = "SELECT * FROM user WHERE email = '$email'";
+// //echo $q;
 
-//$d = mysqli_connect("localhost", "root", "", "authh");
-//mysqli_query($d, "SELECT * FROM user");
+// $q = $db->prepare("SELECT * FROM user WHERE email = ? LIMIT 1");
+// $q->bind_param("s", $email,);
+// $q->execute();
+// $result = $q->get_result();
+// $userRow = $result->fetch_assoc();
+// if($userRow == null){
+//     echo "Błędny login lub hasło <br>";
+// } else {
+// IF(password_verify($password, $userRow['passwordHash'])){
+// echo "Zalogowano poprawnie <br>";
+// } else {
+// echo "Nieprawidłowy login lub hasło <br>";
+// }
+// }
+// }
+// if(isset($_REQUEST['action']) && $_REQUEST['action'] == "register"){
+//     $db = new mysqli("localhost", "root", "", "authh");
+//     $email = $_REQUEST['email'];
+//     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+//     $password = $_REQUEST['password'];
+//     $passwordRepeat = $_REQUEST['password'];
+//     if($password = $passwordRepeat){
+//     $q = $db->prepare("INSERT INTO user VALUES (NULL, ?, ?)");
+//     $passwordHash = password_hash($password, PASSWORD_ARGON2I);
+//     $q->bind_param("ss", $email, $passwordHash);
+//     $result = $q->execute();
+//     if($result){
+//         echo "Konto utworzone poprawnie";
+//     } else {
+//         echo "UPS Coś poszło nie tak!";
+//     }
+//     } else {
+//         echo "Hasła nie sa identyczne";
+//     }
+// }
+// //$db->query($q);
+
+// //$d = mysqli_connect("localhost", "root", "", "authh");
+// //mysqli_query($d, "SELECT * FROM user");
 ?>
 <h1>Zaloguj sie</h1>
 <form action="index.php" method="post">
