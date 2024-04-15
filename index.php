@@ -11,9 +11,29 @@ $password = $_REQUEST['password'];
 $email = filter_var($email, FILTER_SANITIZE_EMAIL);
 $result = User::Login($email, $password);
     if($result){
+        echo "Zalogowano poprawnie";
+    } else {
+        echo "UPS Coś poszło nie tak!";
+    }
+}
+if(isset($_REQUEST['action']) && $_REQUEST['action'] == "register"){
+    $db = new mysqli("localhost", "root", "", "authh");
+    $email = $_REQUEST['email'];
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
+    $password = $_REQUEST['password'];
+    $passwordRepeat = $_REQUEST['password'];
+    if($password = $passwordRepeat){
+    $q = $db->prepare("INSERT INTO user VALUES (NULL, ?, ?)");
+    $passwordHash = password_hash($password, PASSWORD_ARGON2I);
+    $q->bind_param("ss", $email, $passwordHash);
+    $result = $q->execute();
+    if($result){
         echo "Konto utworzone poprawnie";
     } else {
         echo "UPS Coś poszło nie tak!";
+    }
+    } else {
+        echo "Hasła nie sa identyczne";
     }
 }
 // $db = new mysqli("localhost", "root", "", "authh");
