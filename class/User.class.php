@@ -51,7 +51,7 @@ class User {
     }
       
     }
-    public function Logout(){
+    function Logout(){
         //funkcja wylogywywujaca
         session_destroy();
     }

@@ -26,7 +26,7 @@ session_start();
                 </a>
             <?php else: ?>
                 <!-- nie zalogowany -->
-                <a href="login.php">
+                <a href="index.php">
                     <button class="btn btn-primary">
                         <i class="fa-solid fa-user"></i> Zaloguj się
                     </button>
