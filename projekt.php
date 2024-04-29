@@ -15,9 +15,26 @@ session_start();
         <h1>Nagłowek strony</h1>
     </header>
     <div id="container">
-        
+    <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between px-3">
+            <a class="navbar-brand">Nawigacja</a>
+            <?php if(User::isLogged()) : ?>
+                <!-- zalogowany -->
+                <a href="profile.php">
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-user"></i> Profil
+                    </button>
+                </a>
+            <?php else: ?>
+                <!-- nie zalogowany -->
+                <a href="login.php">
+                    <button class="btn btn-primary">
+                        <i class="fa-solid fa-user"></i> Zaloguj się
+                    </button>
+                </a>
+            <?php endif; ?>  
+        </nav>
         <?php
-        $db = new mysqli('localhost', 'root', '', 'cms');
+        $db = new mysqli('localhost', 'root', '', 'authh');
         $q = $db->prepare("SELECT post.id, post.imgUrl, post.title, 
                                     post.timestamp, user.email 
                             FROM `post` 
