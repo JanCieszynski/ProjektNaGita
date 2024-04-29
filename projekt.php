@@ -1,3 +1,7 @@
+<?php
+require_once("class/User.class.php");
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -11,6 +15,7 @@
         <h1>Nagłowek strony</h1>
     </header>
     <div id="container">
+        
         <?php
         $db = new mysqli('localhost', 'root', '', 'cms');
         $q = $db->prepare("SELECT post.id, post.imgUrl, post.title, 
