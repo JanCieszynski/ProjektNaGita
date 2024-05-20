@@ -5,7 +5,18 @@ class Post {
     private $title;
     private $timestamp;
     private $imgUrl;
+     
+    public function __construct(int $id, int $author, int $title, int $timestamp, int $imgUrl){
+        $this->id = $id;
+        $this->author = $author;
+        $this->title = $title;
+        $this->timestamp = $timestamp;
+        $this->imgUrl = $imgUrl;
+    }
     
+        
+    }
+     
     function fetchPosts() : array {
         // Connect to the database
         $db = new mysqli('localhost', 'root', '', 'database_name');
@@ -35,7 +46,7 @@ class Post {
         // Return the array of Post objects
         return $posts;
 }
-}
+
 
 
 ?>
