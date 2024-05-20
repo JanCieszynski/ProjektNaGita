@@ -17,15 +17,13 @@ session_start();
     <div id="container">
     <nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between px-3">
             <a class="navbar-brand">Nawigacja</a>
-            <?php if(User::isLogged()) : ?>
-                <!-- zalogowany -->
+            <?php if(User::isLogged()) : ?>         
                 <a href="profile.php">
                     <button class="btn btn-primary">
                         <i class="fa-solid fa-user"></i> Profil
                     </button>
                 </a>
             <?php else: ?>
-                <!-- nie zalogowany -->
                 <a href="index.php">
                     <button class="btn btn-primary">
                         <i class="fa-solid fa-user"></i> Zaloguj się
